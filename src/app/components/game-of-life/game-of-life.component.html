@@ -1,0 +1,32 @@
+<div>
+    <div class="navbar-brand m-4" (click)="goHome()">Home</div>
+    <button *ngIf="isPaused" mat-button class="m-2" (click)="isPaused = false">Unpause</button>
+    <button *ngIf="!isPaused" mat-button class="m-2" (click)="isPaused = true">Pause</button>
+    <button *ngIf="isPaused" mat-button class="m-2" (click)="step()">Step</button>
+    <button *ngIf="measuringFps" mat-button class="m-2" (click)="measuringFps = false">FPS : {{(1000 / ms).toFixed(0)}}</button>
+    <button *ngIf="!measuringFps" mat-button class="m-2" (click)="measuringFps = true">MS : {{ms}}</button>
+    <button mat-button (click)="openColorsDialog()" class="m-2">Colors</button>
+    <button mat-button class="m-2" [matMenuTriggerFor]="settingsMenu">Settings</button>
+    <button mat-button class="m-2" [matMenuTriggerFor]="loadMenu">Load</button>
+    <button mat-button (click)="consoleLogState()">Console Log State</button>
+
+    <mat-menu #settingsMenu="matMenu">
+        <button *ngIf="hasGrid" mat-menu-item (click)="toggleGrid()">Hide Grid</button>
+        <button *ngIf="!hasGrid" mat-menu-item (click)="toggleGrid()">Show Grid</button>
+        <button *ngIf="isWrapped" mat-menu-item (click)="changeEdges()">Walls</button>
+        <button *ngIf="!isWrapped" mat-menu-item (click)="changeEdges()">Wrap</button>
+        <button *ngIf="isSquare" mat-menu-item (click)="changeStyle()">Circles</button>
+        <button *ngIf="!isSquare" mat-menu-item (click)="changeStyle()">Squares</button>
+    </mat-menu>
+    <mat-menu #loadMenu="matMenu">
+        <button mat-menu-item (click)="randomize()">Randomize</button>
+        <button mat-menu-item (click)="zeroOut()">Zero Out</button>
+        <button mat-menu-item (click)="loadGosperGlider()">Galloper Glider Gun</button>
+        <button mat-menu-item (click)="load101()">1 0 1</button>
+        <button mat-menu-item (click)="load25P3H1V01()">25P3H1V0.1</button>
+        <button mat-menu-item (click)="loadBloomingFlower()">Blooming Flower v0.1</button>
+    </mat-menu>
+</div>
+<div class="col-12">
+    <canvas (click)="clickedGrid($event)"></canvas>
+</div>

@@ -1,0 +1,12 @@
+<div>
+    <div class="navbar-brand m-4" (click)="goHome()">Home</div>
+    <button *ngIf="isPaused" mat-button class="m-2" (click)="isPaused = false">Unpause</button>
+    <button *ngIf="!isPaused" mat-button class="m-2" (click)="isPaused = true">Pause</button>
+    <button *ngIf="hasLines" mat-button class="m-2" (click)="hasLines = false">Hide Lines</button>
+    <button *ngIf="!hasLines" mat-button class="m-2" (click)="hasLines = true">Show Lines</button>
+    <button *ngIf="measuringFps" mat-button class="m-2" (click)="measuringFps = false">FPS : {{(1000 / ms).toFixed(0)}}</button>
+    <button *ngIf="!measuringFps" mat-button class="m-2" (click)="measuringFps = true">MS : {{ms}}</button>
+</div>
+<div class="col-12">
+    <canvas></canvas>
+</div>

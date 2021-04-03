@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Noise Settings</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-button-toggle-group [(ngModel)]="data.selectedDistance" class="m-4" *ngIf="data.selectedNoise === 'worley'">
+        <mat-button-toggle value="euclid">Euclidean</mat-button-toggle>
+        <mat-button-toggle value="manhattan">Manhattan</mat-button-toggle>
+        <mat-button-toggle value="cheby">Chebyshev</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div *ngIf="data.selectedNoise === 'fractal'">
+        <mat-form-field class="m-4">
+            <mat-label>Persistence</mat-label>
+            <input matInput [(ngModel)]="data.persistence">
+        </mat-form-field>
+        <mat-form-field class="m-4">
+            <mat-label>Lacunarity</mat-label>
+            <input matInput [(ngModel)]="data.lacunarity">
+        </mat-form-field>
+        <mat-form-field class="m-4">
+            <mat-label>Octaves</mat-label>
+            <input matInput [(ngModel)]="data.octaves">
+        </mat-form-field>
+    </div>
+    <mat-form-field class="m-4">
+        <mat-label>Seed</mat-label>
+        <input matInput [(ngModel)]="data.seed">
+    </mat-form-field>
+    <mat-form-field class="m-4">
+        <mat-label>Block Size</mat-label>
+        <input matInput [(ngModel)]="data.blockSize">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

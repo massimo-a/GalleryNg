@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Color Stops</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-form-field class="m-4">
+        <mat-label>Color</mat-label>
+        <input matInput [ngxMatColorPicker]="picker" [formControl]="colorControl">
+        <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+        <ngx-mat-color-picker #picker></ngx-mat-color-picker>
+    </mat-form-field>
+    <mat-form-field class="m-4">
+        <mat-label>Stop</mat-label>
+        <input matInput [(ngModel)]="data.stop">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="updateColor()" [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

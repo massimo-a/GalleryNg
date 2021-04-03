@@ -1,0 +1,48 @@
+<div>
+    <div class="center">
+        <div class="navbar-brand m-4 header">Massimo's Angular Gallery</div>
+    </div>
+    <br>
+    <div class="center">
+        <mat-card class="card m-4 noise-header-image text-dark" (click)="redirectToNoise()">
+            <mat-card-header>
+                <mat-card-title>NoiseScript</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="bg-dark text-light p-2 rounded">
+                A script which uses a variety of algorithms; Perlin noise, Worley noise and fractal noise,
+                to procedurally generate textures and images on the HTML5 canvas.
+            </mat-card-content>
+        </mat-card>
+        <!-- <mat-card class="card m-4 bg-dark text-light" (click)="redirectToLight()">
+            <mat-card-header>
+                <mat-card-title>Light2D</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                A script that traces rays of light from a central point, stopping when it intersects walls.
+                The user can draw in walls and move the point of light around the scene, with a Doomslayer type view
+                on the right side.
+            </mat-card-content>
+        </mat-card> -->
+        <mat-card class="card m-4 boid-header-image text-dark" (click)="redirectToBoids()">
+            <mat-card-header>
+                <mat-card-title>Boids</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="bg-dark text-light p-2 rounded">
+                Boids is an artificial life program created by Craig Reynolds, which simulates the flocking behaviour of birds. <br>
+                Boids have three main properties: <br>
+                    Separation: steer to avoid crowding local flockmates <br>
+                    Alignment: steer towards the average heading of local flockmates <br>
+                    Cohesion: steer to move towards the average position (center of mass) of local flockmates <br>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card gol-header-image m-4 text-dark" (click)="redirectToGoL()">
+            <mat-card-header>
+                <mat-card-title>Conway's Game of Life</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="bg-dark text-light p-2 rounded">
+                An implementation of Conway's Game of Life,
+                who first specified the rules for this Turing complete cellular automata
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

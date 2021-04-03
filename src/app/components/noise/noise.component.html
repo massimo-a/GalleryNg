@@ -1,0 +1,25 @@
+<div>
+    <div class="navbar-brand m-4" (click)="goHome()">Home</div>
+    <mat-button-toggle-group [(ngModel)]="settings.selectedNoise" class="m-4">
+        <mat-button-toggle value="fractal" (click)="draw()">Fractal</mat-button-toggle>
+        <mat-button-toggle value="worley" (click)="draw()">Worley</mat-button-toggle>
+        <mat-button-toggle value="value" (click)="draw()">Value</mat-button-toggle>
+        <mat-button-toggle value="ridged" (click)="draw()">Ridged</mat-button-toggle>
+    </mat-button-toggle-group>
+    <button mat-button (click)="openSettingsDialog()" class="m-2">Settings</button>
+    <button mat-button (click)="openColorsDialog()" class="m-2">Colors</button>
+</div>
+<div class="row">
+    <div class="col-2 m-2">
+        <mat-chip-list class="mat-chip-list-stacked">
+            <mat-chip selected class="d-flex justify-content-between" *ngFor="let col of this.colors" [removable]="true" (removed)="delete(col)">
+                <span>{{ col.rgbToHex() }}</span><span>{{ (col.stop*100).toFixed(0) }}%</span>
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+    <div *ngIf="isDrawing" class="d-flex justify-content-center" style="width: 100%; height: auto;">
+        <mat-spinner></mat-spinner>
+    </div>
+    <canvas class="col-9" [style.display]="isDrawing ? 'none' : 'block'"></canvas>
+</div>

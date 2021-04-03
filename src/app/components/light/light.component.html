@@ -1,0 +1,13 @@
+<div>
+    <div class="navbar-brand m-4" (click)="goHome()">Home</div>
+    <div *ngIf="wallsOn">
+        <div class="btn toggle-btn" id="walls-visible" (click)="wallsOn = false">Walls Off</div>
+    </div>
+    <div *ngIf="!wallsOn">
+        <div class="btn toggle-btn" id="walls-visible" (click)="wallsOn = true">Walls On</div>
+    </div>
+</div>
+<div>
+    <canvas width="640" height="550"></canvas>
+    <canvas width="640" height="550"></canvas>
+</div>

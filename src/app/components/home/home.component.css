@@ -1,0 +1,34 @@
+.card {
+  width: 600px;
+  height: 500px;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  font-size: xx-large;
+}
+
+.noise-header-image {
+  background-image: url('..\\..\\imgs\\noise.jpg');
+  background-size: cover;
+}
+
+.boid-header-image {
+  background-image: url('..\\..\\imgs\\bird-flock.png');
+  background-size: cover;
+}
+
+.gol-header-image {
+  /* need image */
+  background-image: url('..\\..\\imgs\\bird-flock.png'); 
+  background-size: cover;
+}
