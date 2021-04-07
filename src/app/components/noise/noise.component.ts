@@ -92,8 +92,8 @@ export class NoiseComponent implements OnInit {
     let pts = []
     let k = Math.floor(this.canvas.width/this.settings.blockSize)
     let h = Math.floor(this.canvas.height/this.settings.blockSize)
-    for(let i = 0; i < k; i++) {
-      for(let j = 0; j < h; j++) {
+    for(let i = -1; i < k; i++) {
+      for(let j = -1; j < h; j++) {
         pts.push(new Vector((Math.random() + i)*this.settings.blockSize, (Math.random() + j)*this.settings.blockSize))
       }
     }
@@ -124,12 +124,26 @@ export class NoiseComponent implements OnInit {
     if(this.settings.selectedNoise === "value") {
       c = noise.valueNoise(new Vector(i/this.settings.blockSize, j/this.settings.blockSize), this.settings.seed)
     } else if(this.settings.selectedNoise === "fractal") {
-      c = noise.fractalNoise(+this.settings.persistence, +this.settings.lacunarity, this.settings.octaves, this.settings.seed)(new Vector(i/this.settings.blockSize, j/this.settings.blockSize))
+      let n = noise.fractalNoise(+this.settings.persistence, +this.settings.lacunarity, this.settings.octaves, this.settings.seed)
+      c = n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
+          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
+          n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.66)/this.settings.blockSize)) +
+          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.66)/this.settings.blockSize))
+      c = c/4
     } else if(this.settings.selectedNoise === "worley") {
-      let d = this.sortedPoints(new Vector(i, j))
-      c = d[0]/d[1]
+      let d1 = this.sortedPoints(new Vector(i+0.33, j+0.33))
+      let d2 = this.sortedPoints(new Vector(i+0.66, j+0.33))
+      let d3 = this.sortedPoints(new Vector(i+0.33, j+0.66))
+      let d4 = this.sortedPoints(new Vector(i+0.66, j+0.66))
+      c = d1[0]/d1[1]+d2[0]/d2[1]+d3[0]/d3[1]+d4[0]/d4[1]
+      c = c/4
     } else if(this.settings.selectedNoise === "ridged") {
-      c = noise.fractalNoiseWith(x => Math.abs(x*2 - 1), +this.settings.persistence, +this.settings.lacunarity, this.settings.octaves, this.settings.seed)(new Vector(i/this.settings.blockSize, j/this.settings.blockSize))
+      let n = noise.fractalNoiseWith(x => Math.abs(x*2 - 1), +this.settings.persistence, +this.settings.lacunarity, this.settings.octaves, this.settings.seed)
+      c = n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
+          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
+          n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.66)/this.settings.blockSize)) +
+          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.66)/this.settings.blockSize))
+      c = c/4
     }
     return this.getColor(c)
   }

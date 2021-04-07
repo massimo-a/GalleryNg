@@ -1,13 +1,12 @@
 <div>
     <div class="navbar-brand m-4" (click)="goHome()">Home</div>
-    <div *ngIf="wallsOn">
-        <div class="btn toggle-btn" id="walls-visible" (click)="wallsOn = false">Walls Off</div>
-    </div>
-    <div *ngIf="!wallsOn">
-        <div class="btn toggle-btn" id="walls-visible" (click)="wallsOn = true">Walls On</div>
-    </div>
+    <button *ngIf="isPaused" mat-button class="m-2" (click)="isPaused = false">Unpause</button>
+    <button *ngIf="!isPaused" mat-button class="m-2" (click)="isPaused = true">Pause</button>
+    <button *ngIf="measuringFps" mat-button class="m-2" (click)="measuringFps = false">FPS : {{(1000 / ms).toFixed(0)}}</button>
+    <button *ngIf="!measuringFps" mat-button class="m-2" (click)="measuringFps = true">MS : {{ms}}</button>
+    <button *ngIf="wallsOn" mat-button class="m-2" (click)="wallsOn = false">Walls Off</button>
+    <button *ngIf="!wallsOn" mat-button class="m-2" (click)="wallsOn = true">Walls On</button>
 </div>
-<div>
-    <canvas width="640" height="550"></canvas>
-    <canvas width="640" height="550"></canvas>
+<div class="col-12">
+    <canvas></canvas>
 </div>

@@ -1,5 +1,6 @@
 import { Vector } from "src/app/lib/vector";
 import { BoidSettings } from "./BoidSettings";
+import { Obstacle } from "./Obstacle";
 
 export interface Boid {
     position: Vector,
@@ -17,15 +18,19 @@ export class BoidPopulation {
     separation: number
     alignment: number
     cohesion: number
+    obstacleAvoidance: number
     width: number
     height: number
+    obstacles: Array<Obstacle>
 
-    constructor(settings: BoidSettings) {
+    constructor(settings: BoidSettings, obstacles: Array<Obstacle> = []) {
         this.separation = settings.separation
         this.alignment = settings.alignment
         this.cohesion = settings.cohesion
         this.width = settings.width
         this.height = settings.height
+        this.obstacles = obstacles
+        this.obstacleAvoidance = 2
         this.boids = []
         for(let i = 0; i < settings.populationSize; i++) {
             let velocityX = Math.cos(Math.random() * 2 * Math.PI)
@@ -34,7 +39,7 @@ export class BoidPopulation {
                 position: new Vector(Math.random() * this.width, Math.random() * this.height),
                 velocity: new Vector(velocityX, velocityY).scale(settings.speed),
                 acceleration: new Vector(0, 0),
-                perception: 100*100,
+                perception: 50*50,
                 speed: settings.speed
             })
         }
@@ -57,7 +62,8 @@ export class BoidPopulation {
             let align = avgVel.sub(b.velocity).scale(this.alignment)
             let coh = avgPos.sub(b.position).scale(this.cohesion)
             let sep = this.separationForce(b, boidsInRange.filter(b2 => b != b2)).scale(this.separation)
-            let vel = b.velocity.add(align).add(coh).add(sep).norm().scale(b.speed)
+            let obs = this.obstacleForces(b).scale(this.obstacleAvoidance)
+            let vel = b.velocity.add(align).add(coh).add(sep).add(obs).norm().scale(b.speed)
 
             let next = b.position
                 .add(vel)
@@ -68,7 +74,7 @@ export class BoidPopulation {
             return {
                 position: next,
                 velocity: vel,
-                acceleration: align.add(coh),
+                acceleration: align.add(coh).add(sep).add(obs),
                 perception: b.perception,
                 speed: b.speed
             }
@@ -93,26 +99,20 @@ export class BoidPopulation {
                 this.drawBoid(ctx, b)
             }
           })
+        this.obstacles.forEach(o => o.draw(ctx))
     }
 
     drawBoid(ctx: CanvasRenderingContext2D, b: Boid) {
-        // let theta = Math.acos(b.velocity.x / b.velocity.mag())
-        // let trianglePoints = [
-        //     b.position.add(new Vector(15, 0).rotate2D(theta)),
-        //     b.position.add(new Vector(0, 5).rotate2D(theta)),
-        //     b.position.add(new Vector(0, -5).rotate2D(theta))
-        // ]
-        // ctx.beginPath()
-        // ctx.fillStyle = 'rgb(225, 225, 225)'
-        // ctx.moveTo(trianglePoints[0].x, trianglePoints[0].y)
-        // ctx.lineTo(trianglePoints[1].x, trianglePoints[1].y)
-        // ctx.lineTo(trianglePoints[2].x, trianglePoints[2].y)
-        // ctx.fill()
-
         ctx.beginPath()
-        ctx.fillStyle = 'rgb(225, 225, 225)'
+        ctx.fillStyle = '#FFFFFF'
         ctx.arc(b.position.x, b.position.y, 5, 0, Math.PI * 2)
         ctx.fill()
+
+        ctx.beginPath()
+        ctx.strokeStyle = '#FFFFFF'
+        ctx.moveTo(b.position.x, b.position.y)
+        ctx.lineTo(b.position.x + b.velocity.x * 5, b.position.y + b.velocity.y * 5)
+        ctx.stroke()
     };
 
     // boid should not be in boids - function does not check for this
@@ -120,5 +120,11 @@ export class BoidPopulation {
         return boids.map(b => boid.position.sub(b.position)).reduce((accu, curr) => {
             return accu.add(curr.norm())
         }, new Vector(0, 0))
+    }
+
+    obstacleForces(b: Boid): Vector {
+        return this.obstacles
+            .map(o => o.getForceAway(b))
+            .reduce((accu, curr) => accu.add(curr), new Vector(0, 0))
     }
 }

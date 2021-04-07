@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Vector } from 'src/app/lib/vector';
 import { BoidPopulation } from './Boid';
 import { BoidSettings } from './BoidSettings';
+import { Obstacle } from './Obstacle';
 
 @Component({
   selector: 'app-boids',
@@ -17,12 +19,13 @@ export class BoidsComponent implements OnInit {
   isPaused: Boolean = false
   hasLines: Boolean = true
   measuringFps: Boolean = true
+  obstacles: Array<Obstacle> = [new Obstacle(new Vector(650, 300), 50)]
 
   settings: BoidSettings = {
     width: 1300,
     height: 600,
-    separation: 0.02,
-    alignment: 0.01,
+    separation: 0.03,
+    alignment: 0.05,
     cohesion: 0.01,
     speed: 3,
     populationSize: 100
@@ -31,7 +34,7 @@ export class BoidsComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.boidPopulation = new BoidPopulation(this.settings)
+    this.boidPopulation = new BoidPopulation(this.settings, this.obstacles)
     this.canvas = document.getElementsByTagName("canvas")[0]
     this.ctx = this.canvas.getContext('2d')
     this.canvas.width = this.settings.width

@@ -150,8 +150,17 @@ export class Grid {
             "000000000000000000000000")
     }
 
+    loadBloomingFlower2() {
+        this.loadState(
+            "00000000000000000000000000000000000000000000000000000001c000014000014000" +
+            "008000000000000000000000000000000000000000000000000000000000000000000000" +
+            "000000000000000000000000000000000000000000000000000000000000000000000000" +
+            "000000000000000000000000000000000000000000000000000000000000000000000000" +
+            "000000000000000000000000"
+        )
+    }
+
     saveState(): string {
-        console.log(this.data)
         return this.data
             .map(x => x.reduce((accu, curr) => accu + curr, ""))
             .map(x => parseInt(x, 2).toString(16).padStart(6, "0"))
@@ -170,6 +179,12 @@ export class Grid {
         let bin = arr
             .map(x => parseInt(x, 16).toString(2).padStart(this.numRows, "0").split(""))
             .map(x => x.map(y => parseInt(y, 2)))
+        while(bin.length < this.numCols) {
+            bin.push([])
+            for(let i = 0; i < this.numRows; i++) {
+                bin[bin.length-1].push(0)
+            }
+        }
         this.data = bin
     }
 }

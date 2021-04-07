@@ -137,6 +137,11 @@ export class GameOfLifeComponent implements OnInit {
     this.draw()
   }
 
+  loadBloomingFlower2() {
+    this.grid.loadBloomingFlower2()
+    this.draw()
+  }
+
   load101() {
     this.grid.load101()
     this.draw()
