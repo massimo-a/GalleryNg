@@ -32,3 +32,21 @@
   background-image: url('..\\..\\imgs\\glider-gol.png'); 
   background-size: cover;
 }
+
+.rd-header-image {
+  /* need image */
+  background-image: url('..\\..\\imgs\\reaction-diffusion.png'); 
+  background-size: cover;
+}
+
+.fluid-header-image {
+  /* need image */
+  background-image: url('..\\..\\imgs\\fluid-sim.png'); 
+  background-size: cover;
+}
+
+.diff-lim-agg-header-image {
+  /* need image */
+  background-image: url('..\\..\\imgs\\diff-lim-agg.png'); 
+  background-size: cover;
+}

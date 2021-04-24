@@ -27,6 +27,9 @@ import { GameOfLifeComponent } from './components/game-of-life/game-of-life.comp
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { GolColorsDialogComponent } from './components/game-of-life/gol-colors-dialog/gol-colors-dialog.component';
+import { FluidSimComponent } from './components/fluid-sim/fluid-sim.component';
+import { ReactionDiffusionComponent } from './components/reaction-diffusion/reaction-diffusion.component';
+import { DiffLimitedAggregationComponent } from './components/diff-limited-aggregation/diff-limited-aggregation.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { GolColorsDialogComponent } from './components/game-of-life/gol-colors-d
     LightComponent,
     BoidsComponent,
     GameOfLifeComponent,
-    GolColorsDialogComponent
+    GolColorsDialogComponent,
+    FluidSimComponent,
+    ReactionDiffusionComponent,
+    DiffLimitedAggregationComponent
   ],
   imports: [
     BrowserModule,

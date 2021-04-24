@@ -34,7 +34,7 @@ export class NoiseComponent implements OnInit {
     new ColorStop(0.0, 0.0, 0.0, 0.0),
     new ColorStop(255.0, 255.0, 255.0, 1.0))
     
-  constructor(public dialog: MatDialog, private router: Router) { }
+  constructor(public dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.canvas = document.getElementsByTagName("canvas")[0]
@@ -125,25 +125,13 @@ export class NoiseComponent implements OnInit {
       c = noise.valueNoise(new Vector(i/this.settings.blockSize, j/this.settings.blockSize), this.settings.seed)
     } else if(this.settings.selectedNoise === "fractal") {
       let n = noise.fractalNoise(+this.settings.persistence, +this.settings.lacunarity, this.settings.octaves, this.settings.seed)
-      c = n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
-          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
-          n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.66)/this.settings.blockSize)) +
-          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.66)/this.settings.blockSize))
-      c = c/4
+      c = n(new Vector((i + 0.5)/this.settings.blockSize, (j + 0.5)/this.settings.blockSize))
     } else if(this.settings.selectedNoise === "worley") {
-      let d1 = this.sortedPoints(new Vector(i+0.33, j+0.33))
-      let d2 = this.sortedPoints(new Vector(i+0.66, j+0.33))
-      let d3 = this.sortedPoints(new Vector(i+0.33, j+0.66))
-      let d4 = this.sortedPoints(new Vector(i+0.66, j+0.66))
-      c = d1[0]/d1[1]+d2[0]/d2[1]+d3[0]/d3[1]+d4[0]/d4[1]
-      c = c/4
+      let d1 = this.sortedPoints(new Vector(i+0.5, j+0.5))
+      c = d1[0]/d1[1]
     } else if(this.settings.selectedNoise === "ridged") {
       let n = noise.fractalNoiseWith(x => Math.abs(x*2 - 1), +this.settings.persistence, +this.settings.lacunarity, this.settings.octaves, this.settings.seed)
-      c = n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
-          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.33)/this.settings.blockSize)) +
-          n(new Vector((i + 0.33)/this.settings.blockSize, (j+0.66)/this.settings.blockSize)) +
-          n(new Vector((i + 0.66)/this.settings.blockSize, (j+0.66)/this.settings.blockSize))
-      c = c/4
+      c = n(new Vector((i + 0.5)/this.settings.blockSize, (j + 0.5)/this.settings.blockSize))
     }
     return this.getColor(c)
   }
@@ -169,5 +157,24 @@ export class NoiseComponent implements OnInit {
     let i = this.colors.indexOf(col)
     this.colors.splice(i, 1)
     this.draw()
+  }
+
+  download(name: string) {
+    var xhr = new XMLHttpRequest();
+    var c = document.createElement('canvas')
+    c.width = this.canvas.width*4
+    c.height = this.canvas.height*4
+    c.getContext('2d').drawImage(this.canvas, 0, 0, this.canvas.width, this.canvas.height, 0, 0, this.canvas.width*4, this.canvas.height*4)
+    xhr.open('GET', c.toDataURL('image/png'), true);
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+        var urlCreator = window.URL || window.webkitURL;
+        var imageUrl = urlCreator.createObjectURL(this.response);
+        var tag = document.createElement('a');
+        tag.href = imageUrl;
+        tag.download = name;
+        tag.click();
+    }
+    xhr.send();
   }
 }

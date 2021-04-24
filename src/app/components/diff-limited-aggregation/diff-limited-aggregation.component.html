@@ -1,0 +1,9 @@
+<div>
+    <div class="navbar-brand m-4" (click)="goHome()">Home</div>
+    <button *ngIf="measuringFps" mat-button class="m-2" (click)="measuringFps = false">FPS : {{(1000 / ms).toFixed(0)}}</button>
+    <button *ngIf="!measuringFps" mat-button class="m-2" (click)="measuringFps = true">MS : {{ms}}</button>
+    <button mat-button (click)="download('diff-lim-agg.png')" class="m-2">Download</button>
+</div>
+<div class="col-12">
+    <canvas (click)="clickedGrid($event)"></canvas>
+</div>

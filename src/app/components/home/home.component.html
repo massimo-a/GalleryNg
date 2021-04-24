@@ -32,6 +32,9 @@
                 Boids is an artificial life program created by Craig Reynolds, which simulates the flocking behaviour of birds.
             </mat-card-content>
         </mat-card>
+    </div>
+
+    <div class="center">
         <mat-card class="card gol-header-image m-4 text-light" (click)="redirectToGoL()">
             <mat-card-header>
                 <mat-card-title>Conway's Game of Life</mat-card-title>
@@ -39,6 +42,37 @@
             <mat-card-content class="bg-dark text-light p-2 rounded">
                 An implementation of Conway's Game of Life,
                 who first specified the rules for this Turing complete cellular automata
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card fluid-header-image m-4 text-light" (click)="redirectToFluid()">
+            <mat-card-header>
+                <mat-card-title>Fluid Simulation</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="bg-dark text-light p-2 rounded">
+                A fluid simulation based on the paper <i>Real-Time Fluid Dynamics for Games</i> by Jon Stam
+                and <i>Fluid Simulation for Dummies</i> by Mike Ash.
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card rd-header-image m-4 text-light" (click)="redirectToReactionDiffusion()">
+            <mat-card-header>
+                <mat-card-title>Reaction Diffusion</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="bg-dark text-light p-2 rounded">
+                A simulation of a reaction between two chemicals, A and B. A certain quantity of A is added into the mix at
+                each time step and a certain quantity of B is removed. B reacts with A, causing chemical A to become chemical B.
+                The chemicals diffuse similar to how fluids diffuse. Produces interesting patterns and effects.
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="center">
+        <mat-card class="card diff-lim-agg-header-image m-4 text-dark" (click)="redirectToDiffLimAgg()">
+            <mat-card-header>
+                <mat-card-title>Diffusion Limited Aggregation</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="bg-dark text-light p-2 rounded">
+                An algorithm in which particles undergo a random walk, eventually colliding with an "aggregate". The aggregate
+                becomes larger and larger, forming a tree or plant like structure.
             </mat-card-content>
         </mat-card>
     </div>

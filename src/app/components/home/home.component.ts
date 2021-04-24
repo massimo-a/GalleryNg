@@ -27,4 +27,16 @@ export class HomeComponent implements OnInit {
   redirectToGoL(): void {
     this.router.navigate(['/gol'])
   }
+
+  redirectToFluid(): void {
+    this.router.navigate(['/fluid'])
+  }
+
+  redirectToReactionDiffusion(): void {
+    this.router.navigate(['/reaction-diffusion'])
+  }
+
+  redirectToDiffLimAgg(): void {
+    this.router.navigate(['/diff-lim-agg'])
+  }
 }

@@ -41,7 +41,6 @@ export class Noise {
                 p = p*per
                 l = l*lac
             }
-            console.log(accu, max)
             return accu/max
         }
     }
